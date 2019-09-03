@@ -9,13 +9,18 @@ mvn clean install jib:dockerBuild
 http :8080/api/v1/animals/random
 ```
 
-# Jager
+# API - Dev 
+``` 
+http :8081/api/v1/animals/random
+```
 
+
+# Jager
 [Jeager UI ](http://localhost:16686/search)
 
 ## Initial run
 ```
-docker run -d --name jaeger \                                                                                                                                 275ms  Tue Sep  3 06:31:34 2019
+docker run -d --name jaeger \                                                                                                                                
   -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 \
   -p 5775:5775/udp \
   -p 6831:6831/udp \
@@ -34,4 +39,9 @@ docker stop jaeger
 ## Start Jaeger
 ```
 docker start jaeger 
+```
+
+## Hit the Service
+``` 
+for x in (seq 20); http ":8080/api/v1/animals/random"; end
 ```
