@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
+        <version>2.1.8.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ch.keepcalm.demo</groupId>
@@ -20,6 +20,9 @@
         <jib.version>1.5.1</jib.version>
         <docker-registery>marzelwidmer</docker-registery>
         <jaeger.version>2.0.3</jaeger.version>
+        <swagger.version>2.9.2</swagger.version>
+        <fabric8.maven.plugin.version>4.2.0</fabric8.maven.plugin.version>
+        <gitlog.version>1.13.17</gitlog.version>
     </properties>
 
     <dependencies>
@@ -42,6 +45,23 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
+        </dependency>
+
+        <!-- Used For SwaggerUI -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <!-- Jaeger -->
@@ -71,6 +91,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -91,6 +118,40 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- Git Commit Plugin -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+            </plugin>
+            <!-- Gitlog -->
+            <plugin>
+                <groupId>com.github.danielflower.mavenplugins</groupId>
+                <artifactId>gitlog-maven-plugin</artifactId>
+                <version>${gitlog.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Fabric8 -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId>
+                <version>${fabric8.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>fmp</id>
+                        <goals>
+                            <goal>resource</goal>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <!-- Jib -->
             <plugin>
@@ -106,12 +167,8 @@
                         <image>${docker-registery}/${project.name}</image>
                     </to>
                     <container>
-<!--                        <useCurrentTimestamp>true</useCurrentTimestamp>-->
                         <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
                     </container>
-
-<!--                    <container><useCurrentTimestamp> is deprecated; use <container><creationTime> with the value USE_CURRENT_TIMESTAMP instead-->
-
                 </configuration>
             </plugin>
         </plugins>
