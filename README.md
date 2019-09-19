@@ -3,17 +3,14 @@
 ```
 mvn clean install jib:dockerBuild
 ```
+```
+docker run --name catalog-service -p 8080:8080 -d marzelwidmer/catalog-service:latest
+```
 
 # API 
 ``` 
 http :8080/api/v1/animals/random
 ```
-
-# API - Dev 
-``` 
-http :8081/api/v1/animals/random
-```
-
 
 # Jager
 [Jeager UI ](http://localhost:16686/search)
