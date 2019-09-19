@@ -26,7 +26,6 @@ import java.io.InputStreamReader
 import java.util.*
 import java.util.stream.Collectors
 import javax.annotation.PostConstruct
-import kotlin.random.Random
 
 @SpringBootApplication
 class CatalogServiceApplication
@@ -39,7 +38,7 @@ fun main(args: Array<String>) {
 class TracerConfiguration {
 
     @Bean
-    fun jaegerTracer() = io.jaegertracing.Configuration("catalog-service")
+    fun jaegerTracer(): io.jaegertracing.Configuration = io.jaegertracing.Configuration("catalog-service")
             .withSampler(io.jaegertracing.Configuration.SamplerConfiguration
                     .fromEnv()
                     .withType(ConstSampler.TYPE)
@@ -48,7 +47,6 @@ class TracerConfiguration {
                     .fromEnv()
                     .withLogSpans(true))
 }
-
 
 @RestController
 @RequestMapping("/api/v1/animals")
@@ -64,19 +62,17 @@ class AnimalNameResource(private val animalNameService: AnimalNameService) {
 @Service
 class AnimalNameService(var animalNames: List<String> = listOf()) {
 
-    @PostConstruct
-    private fun init() {
-        val inputStream = ClassPathResource("/animals.txt").inputStream
-        BufferedReader(InputStreamReader(inputStream)).use { reader ->
-            animalNames = reader.lines().collect(Collectors.toList<String>())
-        }
-    }
-
     fun getRandomNames() = animalNames[kotlin.random.Random.nextInt(animalNames.size)]
 
 }
 
-
+@PostConstruct
+private fun AnimalNameService.init() {
+    val inputStream = ClassPathResource("/animals.txt").inputStream
+    BufferedReader(InputStreamReader(inputStream)).use { reader ->
+        animalNames = reader.lines().collect(Collectors.toList<String>())
+    }
+}
 
 @Configuration
 @EnableSwagger2
