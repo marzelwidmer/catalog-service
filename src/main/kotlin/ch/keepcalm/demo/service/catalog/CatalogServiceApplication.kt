@@ -48,6 +48,7 @@ class TracerConfiguration {
                     .withLogSpans(true))
 }
 
+
 @RestController
 @RequestMapping("/api/v1/animals")
 class AnimalNameResource(private val animalNameService: AnimalNameService) {
@@ -62,17 +63,19 @@ class AnimalNameResource(private val animalNameService: AnimalNameService) {
 @Service
 class AnimalNameService(var animalNames: List<String> = listOf()) {
 
+    @PostConstruct
+    private fun init() {
+        val inputStream = ClassPathResource("/animals.txt").inputStream
+        BufferedReader(InputStreamReader(inputStream)).use { reader ->
+            animalNames = reader.lines().collect(Collectors.toList<String>())
+        }
+    }
+
     fun getRandomNames() = animalNames[kotlin.random.Random.nextInt(animalNames.size)]
 
 }
 
-@PostConstruct
-private fun AnimalNameService.init() {
-    val inputStream = ClassPathResource("/animals.txt").inputStream
-    BufferedReader(InputStreamReader(inputStream)).use { reader ->
-        animalNames = reader.lines().collect(Collectors.toList<String>())
-    }
-}
+
 
 @Configuration
 @EnableSwagger2
