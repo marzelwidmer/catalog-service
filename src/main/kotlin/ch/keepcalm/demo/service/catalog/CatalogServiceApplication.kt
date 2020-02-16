@@ -1,10 +1,10 @@
 package ch.keepcalm.demo.service.catalog
 
+import ch.sbb.esta.openshift.gracefullshutdown.GracefulshutdownSpringApplication
 import io.jaegertracing.internal.samplers.ConstSampler
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.info.BuildProperties
 import org.springframework.boot.info.GitProperties
-import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -33,7 +33,7 @@ import javax.annotation.PostConstruct
 class CatalogServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<CatalogServiceApplication>(*args)
+    GracefulshutdownSpringApplication.run(CatalogServiceApplication::class.java, *args)
 }
 
 @Component
@@ -76,7 +76,6 @@ class AnimalNameService(var animalNames: List<String> = listOf()) {
     fun getRandomNames() = animalNames[kotlin.random.Random.nextInt(animalNames.size)]
 
 }
-
 
 
 @Configuration
