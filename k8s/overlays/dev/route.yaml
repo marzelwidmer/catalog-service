@@ -1,44 +1,27 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  annotations:
-    openshift.io/host.generated: "true"
   labels:
     app: catalog-service
-  name: catalog-servcie
+    env: dev
+    stage: dev
+  name: catalog-service
   namespace: dev
 spec:
-  host:  "catalog-service-dev.apps.c3smonkey.ch"
+  host: catalog-service-dev.apps.c3smonkey.ch
   port:
-    targetPort: 8080
-  tls:
-    termination: edge
+    targetPort: 8080-8080
   to:
     kind: Service
     name: catalog-service
     weight: 100
   wildcardPolicy: None
-#---
-#apiVersion: route.openshift.io/v1
-#kind: Route
-#metadata:
-#  name: frontend
-#spec:
-#  tls:
-#    termination: edge
-#  to:
-#    kind: Service
-#    name: frontend
-#---
-#apiVersion: route.openshift.io/v1
-#kind: Route
-#metadata:
-#  name: demo
-#  labels:
-#    app: demo
-#spec:
-#  tls:
-#    termination: edge
-#  to:
-#    kind: Service
-#    name: demo
+status:
+  ingress:
+    - conditions:
+        - lastTransitionTime: "2020-02-16T11:24:32Z"
+          status: "True"
+          type: Admitted
+      host: catalog-service-dev.apps.c3smonkey.ch
+      routerName: router
+      wildcardPolicy: None
