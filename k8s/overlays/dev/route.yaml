@@ -19,9 +19,6 @@ spec:
 status:
   ingress:
     - conditions:
-        - lastTransitionTime: "2020-02-16T11:24:32Z"
-          status: "True"
-          type: Admitted
       host: catalog-service-dev.apps.c3smonkey.ch
       routerName: router
       wildcardPolicy: None

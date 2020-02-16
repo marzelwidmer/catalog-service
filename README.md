@@ -39,9 +39,10 @@ Starting deploy...
 You can also run [skaffold run --tail] to get the logs
 ```
 
-See also : https://registry-console-default.apps.c3smonkey.ch/registry#/images/dev/catalog-service 
+See also : 
 
-
+https://registry-console-default.apps.c3smonkey.ch/registry#/images/dev/catalog-service 
+http://catalog-service-dev.apps.c3smonkey.ch/swagger-ui.html
 
 
 
