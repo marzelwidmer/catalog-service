@@ -17,3 +17,9 @@ images:
 resources:
 - ../../base/
 - route.yaml
+
+configMapGenerator:
+  - name: catalog-service-configmap
+    behavior: merge
+    files:
+      - application.yaml
