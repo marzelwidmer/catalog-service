@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: catalog-service
+  name: catalog-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec:
+      containers:
+        - image: docker-registry.default.svc:5000/myproject/demo
+          name: catalog-service
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /alive
+          readinessProbe:
+            periodSeconds: 5
+            failureThreshold: 1
+            httpGet:
+              port: 8080
+              path: /actuator/health
