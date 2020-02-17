@@ -26,3 +26,7 @@ ribbon:
   http:
     client:
       enabled: true
+
+
+server:
+  port: 8081
