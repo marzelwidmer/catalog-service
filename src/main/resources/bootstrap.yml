@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: catalog-service
+  cloud:
+    kubernetes:
+      reload:
+        enabled: true
+        mode: polling
+        period: 5000
+        strategy: restart_context

@@ -1,0 +1,3 @@
+app:
+  name: CatalagService
+  description: ${app.name} is a Spring Boot application ${random.uuid}

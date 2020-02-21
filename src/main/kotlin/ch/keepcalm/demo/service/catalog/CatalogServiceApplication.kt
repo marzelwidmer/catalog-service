@@ -2,6 +2,7 @@ package ch.keepcalm.demo.service.catalog
 
 import ch.sbb.esta.openshift.gracefullshutdown.GracefulshutdownSpringApplication
 import io.jaegertracing.internal.samplers.ConstSampler
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.info.BuildProperties
 import org.springframework.boot.info.GitProperties
@@ -41,6 +42,20 @@ class LivenessProbe  {
     @GetMapping(value = ["/alive"])
     fun alive() = "ok"
 }
+
+
+
+@RestController(value = "/")
+class FooController  {
+
+    @Value("\${app.description}")
+    private val description: String? = null
+
+    @GetMapping
+    fun foo() = description
+
+}
+
 
 
 @Component

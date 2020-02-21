@@ -1,12 +1,3 @@
-spring:
-  application:
-    name: catalog-service
-  cloud:
-    kubernetes:
-      reload:
-        enabled: true
-        strategy: restart_context
-
 management:
   endpoints:
     web:
@@ -28,5 +19,13 @@ ribbon:
       enabled: true
 
 
+app:
+  name: MyApp
+  description: ${app.name} is a Spring Boot application ${random.uuid}
+
+
+---
 server:
   port: 8081
+spring:
+  profiles: local

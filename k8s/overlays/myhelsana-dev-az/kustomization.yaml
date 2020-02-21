@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: dev
+namespace: myhelsana-dev-az
 
 commonLabels:
   env: dev
@@ -10,19 +10,21 @@ commonAnnotations:
   component: fsl-backend
 
 images:
-- name: docker-registry.default.svc:5000/myproject/demo
-  newName: docker-registry.default.svc:5000/dev/catalog-service
-  newTag: latest
+  - name: docker-registry.default.svc:5000/myproject/demo
+    newName: docker-registry.default.svc:5000/myhelsana-dev-az/catalog-service
+    newTag: latest
 
 resources:
-- ../../base/
-- route.yaml
+  - ../../base/
+  - route.yaml
 
 patchesStrategicMerge:
   - memorylimit_patch.yaml
-  -
+
 configMapGenerator:
   - name: catalog-service-configmap
     behavior: merge
     files:
       - ./config-files/application.yaml
+
+
