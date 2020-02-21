@@ -28,6 +28,24 @@ profiles:
         manifests:
           - deployment.yaml
 
+  - name: monkeyOsp
+    activation:
+      - kubeContext: dev/console-c3smonkey-ch:8443/developer
+    build:
+      insecureRegistries:
+        - registry.apps.c3smonkey.ch
+      tagPolicy:
+        sha256: {}
+      artifacts:
+        - image: registry.apps.c3smonkey.ch/dev/catalog-service
+          jib:
+            args: ['-Djib.from.image=registry.apps.c3smonkey.ch/dev/openjdk18-openshift:latest', '-Dimage=registry.apps.c3smonkey.ch/dev/catalog-service']
+
+    deploy:
+      kubectl:
+        manifests:
+          - deployment.yaml
+
   - name: local
     build:
       tagPolicy:
@@ -50,7 +68,7 @@ profiles:
       artifacts:
         - image: registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-ez/catalog-service
           jib:
-            args: ['-Djib.from.image=registry.osp-appl-preprod.hel.kko.ch/myhelsana-build-dz/openjdk18-openshift:latest', '-Dimage=registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-ez/catalog-service']
+            args: ['-Djib.from.image=registry.osp-appl-preprod.hel.kko.ch/myhelsana-build-dz/openjdk18-openshift:spring', '-Dimage=registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-ez/catalog-service']
 
     deploy:
       kubectl:
@@ -70,8 +88,7 @@ profiles:
       artifacts:
         - image: registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/catalog-service
           jib:
-            args: ['-Djib.from.image=registry.osp-appl-preprod.hel.kko.ch/myhelsana-build-dz/openjdk18-openshift:latest', '-Dimage=registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/catalog-service']
-#            args: ['-Dimage=registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/catalog-service']
+            args: ['-Djib.from.image=registry.osp-appl-preprod.hel.kko.ch/myhelsana-build-dz/openjdk18-openshift:spring', '-Dimage=registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/catalog-service']
 
     deploy:
       kubectl:
