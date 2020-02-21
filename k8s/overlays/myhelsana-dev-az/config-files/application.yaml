@@ -1,0 +1,3 @@
+app:
+  name: CatalagService
+  description: ${app.name} - welcome from the snuggi.

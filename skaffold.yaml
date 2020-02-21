@@ -71,6 +71,7 @@ profiles:
         - image: registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/catalog-service
           jib:
             args: ['-Djib.from.image=registry.osp-appl-preprod.hel.kko.ch/myhelsana-build-dz/openjdk18-openshift:latest', '-Dimage=registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/catalog-service']
+#            args: ['-Dimage=registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/catalog-service']
 
     deploy:
       kubectl:

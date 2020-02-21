@@ -20,7 +20,7 @@ resources:
 
 patchesStrategicMerge:
   - memorylimit_patch.yaml
-  -
+
 configMapGenerator:
   - name: catalog-service-configmap
     behavior: merge
