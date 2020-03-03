@@ -1,3 +1,0 @@
-app:
-  name: CatalagService
-  description: ${app.name} - Is configured from K8s configmap.
